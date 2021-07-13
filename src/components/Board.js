@@ -1,20 +1,23 @@
 import { useState, useCallback } from 'react';
 import Canvas from './Canvas';
+import grid from './grid'
 import Sidebar from './Sidebar'
 import { Result } from './Result';
+import { GifRounded } from '@material-ui/icons';
 function Board (){
     const [droppedHTML, setDroppedHTML] = useState('');
     const handleHTMLDrop = useCallback((item) => {
         if (item) {
-            console.log("hi from call",item)
-            setDroppedHTML(item.html);
+            console.log("hi from call:",item)
+            console.log(item.name)
+            setDroppedHTML(item.name);
         }
     }, [setDroppedHTML]);
     return (<>
-			<iframe srcDoc={`<img src='https://react-dnd.github.io/react-dnd/favicon-32x32.png' />`}/>
-            <Sidebar/>  
+            <Sidebar/>   
 			<Canvas onDrop={handleHTMLDrop}/>
-			{/* <Result html={droppedHTML}/> */}
+            <grid/>
+			<Result html={droppedHTML}/>
 		</>);
 };
 export default Board;

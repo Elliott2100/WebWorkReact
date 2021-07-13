@@ -4,11 +4,7 @@ import TextFieldsIcon from '@material-ui/icons/TextFields';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { useDrag, DragPreviewImage } from 'react-dnd'
 import { ItemTypes } from './constraint'
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 function Sidebar() {
-    const clearmylocal = () => {
-        window.localStorage.removeItem("element")
-    }
     const [{ isDragging }, drag, preview] = useDrag(() => ({
         type: ItemTypes.Button,
         item: { name: ItemTypes.Button },
