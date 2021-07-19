@@ -10,8 +10,8 @@ function Sidebar() {
         item: { name: ItemTypes.Button },
         end: (item, monitor) => {   
             const dropresult=monitor.getDropResult()
-            console.log(item)
-            console.log(dropresult)
+            console.log({item})
+            console.log({dropresult})
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),

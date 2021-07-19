@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react';
+import ResponsiveGridLayout from './ResponsiveGridLayout';
 import Canvas from './Canvas';
-import grid from './grid'
+import Grid from './Grid'
 import Sidebar from './Sidebar'
 import { Result } from './Result';
 import { GifRounded } from '@material-ui/icons';
+import ReactGridLayout from './ReactGridLayout'
 function Board (){
     const [droppedHTML, setDroppedHTML] = useState('');
     const handleHTMLDrop = useCallback((item) => {
@@ -14,10 +16,12 @@ function Board (){
         }
     }, [setDroppedHTML]);
     return (<>
+            {/* <ReactGridLayout/> */}
             <Sidebar/>   
 			<Canvas onDrop={handleHTMLDrop}/>
-            <grid/>
-			<Result html={droppedHTML}/>
+            {/* <ResponsiveGridLayout/> */}
+            {/* <Grid/> */}
+			{/* <Result html={droppedHTML}/>*/}
 		</>);
 };
 export default Board;
