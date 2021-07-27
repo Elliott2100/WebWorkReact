@@ -1,4 +1,5 @@
 export const ItemTypes={
     Button:'Button',
-    TextFiled:'Textfield'
+    TextFiled:'Textfield',
+    Grid:'Grid'
 }

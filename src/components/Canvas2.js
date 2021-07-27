@@ -24,10 +24,7 @@ const style = {
   padding: '1rem',
   textAlign: 'center',
 };
-const element = [
-  { name: "Button", tag: <div><Button variant='text' color='secondary' size='Large'>Button</Button></div> },
-  { name: "Textfield", tag: <div><TextField id="filled-basic" variant="filled" color='secondary' /> </div> }
-]
+
 function Canvas(props) {
   const classes = useStyles();
   const [newelement, setnewelement] = useState([]);
@@ -49,7 +46,7 @@ function Canvas(props) {
     }),
   }));
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: [ItemTypes.TextFiled, ItemTypes.Button],
+    accept: [ItemTypes.TextFiled, ItemTypes.Button, ItemTypes.Grid],
     drop(item) {
       if (onDrop) {
         console.log("Canvas:", item)
@@ -68,7 +65,7 @@ function Canvas(props) {
     }),
   }), [props]);
   const [{ canDrop: canDrop1, isOver: isOver2 }, drop2] = useDrop(() => ({
-    accept: [ItemTypes.TextFiled, ItemTypes.Button],
+    accept: [ItemTypes.TextFiled, ItemTypes.Button, ItemTypes.Grid],
     drop(item) {
       if (onDrop) {
         console.log(`%c Canvas2: ${{ item }}`, "color:Orange")
@@ -86,6 +83,27 @@ function Canvas(props) {
       canDrop1: !!monitor.canDrop(),
     }),
   }), [props]);
+  const element = [
+    { name: "Button", tag: <div><Button variant='text' color='secondary' size='Large'>Button</Button></div> },
+    { name: "Textfield", tag: <div><TextField id="filled-basic" variant="filled" color='secondary' /> </div> },
+    {
+      name: "Grid", tag: <div>
+        <Grid container xs={12} className={classes.paper} spacing={2}>{ /*grid for the items when dropped on the grid on the canvas*/}
+          <Grid item xs={3} className={classes.paper} ref={drop}>
+          </Grid>
+          <Grid item xs={3} className={classes.paper}>
+
+          </Grid>
+          <Grid item xs={3} className={classes.paper}>
+
+          </Grid>
+          <Grid item xs={3} className={classes.paper}>
+
+          </Grid>
+        </Grid>
+
+      </div>
+    }]
   function checkelement(itemnanecontainer) {
     let temparray = newelement
     temparray.push(element.find(o => o.name === itemnanecontainer))
@@ -96,7 +114,6 @@ function Canvas(props) {
       console.log("temparray", { temparray })
       console.log('newelement', { newelement })
     }
-
   }
   function checkelement2(itemnanecontainer) {
     let temparray1 = newelement2
@@ -107,111 +124,31 @@ function Canvas(props) {
     if (temparray1) {
       console.log("temparray2:", { temparray1 })
       console.log('newelement2:', { newelement })
+      // visible=true;
+      // document.getElementById('isActive').style.visibility="hidden";
     }
-
+    // console.log('visiblity',visible)
   }
   const isActive = canDrop && isOver;//this is isActive trigger
   const isActive1 = canDrop1 && isOver2;// this is isActive2trigger
   return (
-    <Box style={style} bgcolor={isActive ? "#76BA1B" : " #ffc30b"}> {/*box is the container for the grid*/}
-      <div className={classes.root}>
-        <Grid container xs={12} spacing={2}>{ /*grid for the items when dropped on the grid on the canvas*/}
-          <Grid item xs={3} className={classes.paper} ref={drop}>
-            {/* {isActive ? "drophere" : null} */}
-            {
-              <div>
-                <div>
-                  {console.log(`in the drop point ${newelement.name},,${newelement.length}`)}
-                </div>
+    <Box style={style} bgcolor={isActive ? "#76BA1B" : "#87cefa"} ref={drop}> {/*box is the container for the grid*/}
+      <div>
+        {
+          newelement.length > 0 && (
 
-                {
-                  newelement.length > 0 && (
-
-                    newelement.map((element, index) => {
-                      return (
-                        <>
-                          <div key={index} ref={drag}>
-                            {console.log(`%c Key:(${index}) element.tag:(${element.tag}), element.name:(${element.name})`, "color:#8cbed6; font-weight:bold")}
-                            {element.tag}
-                          </div>
-                        </>
-                      )
-                    })
-                  )
-                }
-              </div>
-            }
-          </Grid>
-          <Grid item xs={3} className={classes.paper} ref={drop2}>
-            {
-
-              <div>
-                {
-                  newelement2.length > 0 && (
-
-                    newelement2.map((element2, index2) => {
-                      return (
-                        <>
-                          <div key={index2} ref={drag}>
-                            {element2.tag}
-                          </div>
-                        </>
-                      )
-                    })
-                  )
-                }
-              </div>
-            }
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-        </Grid>
-        <Grid container xs={12} spacing={2}>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-        </Grid>
-        <Grid container xs={12} spacing={2}>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-        </Grid>
-        <Grid container xs={12} spacing={2}>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-          <Grid item xs={3} className={classes.paper}>
-
-          </Grid>
-        </Grid>
+            newelement.map((element, index) => {
+              return (
+                <>
+                  <div key={index} ref={drag}>
+                    {console.log(`%c Key:(${index}) element.tag:(${element.tag}), element.name:(${element.name})`, "color:#8cbed6; font-weight:bold")}
+                    {element.tag}
+                  </div>
+                </>
+              )
+            })
+          )
+        }
       </div>
     </Box>
   );

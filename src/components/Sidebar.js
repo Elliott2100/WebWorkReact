@@ -2,16 +2,17 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import GridOnIcon from '@material-ui/icons/GridOn';
 import { useDrag, DragPreviewImage } from 'react-dnd'
 import { ItemTypes } from './constraint'
 function Sidebar() {
     const [{ isDragging }, drag, preview] = useDrag(() => ({
         type: ItemTypes.Button,
         item: { name: ItemTypes.Button },
-        end: (item, monitor) => {   
-            const dropresult=monitor.getDropResult()
-            console.log({item})
-            console.log({dropresult})
+        end: (item, monitor) => {
+            const dropresult = monitor.getDropResult()
+            console.log(`%c from end item ${{ item }}`, "color:Green")
+            console.log(`%c from end monitor dropresult${{ dropresult }} `, "color: Green")
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -23,19 +24,31 @@ function Sidebar() {
         type: ItemTypes.TextFiled,
         item: { name: ItemTypes.TextFiled },
         end: (item, monitor) => {
-            console.log(item)
-            console.log(monitor)
+            const dropresult = monitor.getDropResult()
+            console.log(`%c from end item ${{ item }} `, "color:Green")
+            console.log(`%c from end monitor dropresult${{ dropresult }} `, "color: Green")
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),
         }),
     }))
-    const buttonImage = 'https://freepngimg.com/thumb/categories/1428.png'
-    const textfieldbutton = 'https://static.thenounproject.com/png/756265-200.png'
+    const [{ isDragging: isdragging3 }, drag3, preview3] = useDrag(() => ({
+        type: ItemTypes.Grid,
+        item: { name: ItemTypes.Grid },
+        end: (item, monitor) => {
+            const dropresult = monitor.getDropResult()
+            console.log(`%c from end item ${{ item }} `, "color:Green")
+            console.log(`%c from end monitor dropresult${{ dropresult }} `, "color: Green")
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+            handlerId: monitor.getHandlerId(),
+        }),
+    }))
     return (
 
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100' }}>
             <h1>Sidebar</h1>
             <Box
                 display="flex"
@@ -44,10 +57,10 @@ function Sidebar() {
                 p={1}
                 m={1}
                 bgcolor="primary.main"
-                sx={{ maxWidth: 300, height: 200 }}
+                sx={{ maxWidth: 400, height: 250 }}
             >
                 <RadioButtonCheckedIcon />
-                <DragPreviewImage connect={preview} src={buttonImage} />
+               
                 <div>
                     <Box
                         ref={drag}
@@ -62,7 +75,7 @@ function Sidebar() {
                     </Box>
                 </div>
                 <TextFieldsIcon />
-                <DragPreviewImage connect={preview2} src={textfieldbutton} />
+                
                 <div>
                     <Box
                         ref={drag2}
@@ -73,6 +86,21 @@ function Sidebar() {
                         }}
                         p={1} bgcolor="grey.300">
                         TextField
+                    </Box>
+                </div>
+                <GridOnIcon/> 
+                
+                <div>
+                    <Box
+                        ref={drag3}
+                        style={{
+                            opacity: isdragging3 ? 0.5 : 1,
+                            fontSize: 16,
+                            cursor: 'move',
+                            width:35
+                        }}
+                        p={1} bgcolor="grey.300">
+                        Grid
                     </Box>
                 </div>
             </Box>
