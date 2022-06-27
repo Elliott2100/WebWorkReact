@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import ResponsiveGridLayout from './ResponsiveGridLayout';
 import Canvas from './Canvas';
 import List from '@material-ui/core/List'
-import Grid from './Grid'
+import Grid from '@material-ui/core/Grid';
 import Sidebar from './Sidebar'
 import Canvas2 from './Canvas2'
 import { Result } from './Result';
